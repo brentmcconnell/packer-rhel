@@ -1,5 +1,5 @@
-pool:
-  vmImage: ubuntu-latest
+pool: parker-vmss
+#  vmImage: ubuntu-latest
   
 variables:
 - group: SP_VALUES
