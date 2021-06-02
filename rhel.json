@@ -29,8 +29,8 @@
         "type": "redhat",
         "created_by": "packer"
     },
-
-    "vm_size": "Standard_DS2_v2"
+    "virtual_network_name":               "parker-vnet",
+    "vm_size":                            "Standard_DS2_v2"
   }],
   "provisioners": [
   {
