@@ -1,0 +1,61 @@
+{
+  "variables": {
+    "secretKey":      "{{env `AZURE_SECRET`}}",
+    "clientId":       "{{env `AZURE_CLIENTID`}}",
+    "subscriptionId": "{{env `AZURE_SUBSCRIPTIONID`}}",
+    "tenantId":       "{{env `AZURE_TENANTID`}}",
+    "cloud":          "{{env `AZURE_CLOUD`}}",
+    "location":       "{{env `AZURE_LOCATION`}}",
+    "resourceGroup":  "{{env `AZURE_RESOURCE_GROUP`}}",
+    "version":        "{{env `IMAGE_VERSION`}}"
+  },
+  "builders": [{
+    "type":                               "azure-arm",
+    "subscription_id":                    "{{user `subscriptionId`}}",
+    "client_id":                          "{{user `clientId`}}",
+    "client_secret":                      "{{user `secretKey`}}",
+    "tenant_id":                          "{{user `tenantId`}}",
+    "cloud_environment_name":             "{{user `cloud`}}",
+    "build_resource_group_name":          "{{user `resourceGroup`}}",
+    "managed_image_resource_group_name":  "{{user `resourceGroup`}}", 
+    "managed_image_name":                 "myRHELImg-{{user `version`}}",
+    "os_type":                            "Linux",
+    "image_publisher":                    "Redhat",
+    "image_offer":                        "RHEL",
+    "image_sku":                          "7-LVM",
+    "image_version":                      "7.8.2021051701",
+    "azure_tags": {
+        "os": "linux",
+        "type": "redhat",
+        "created_by": "packer"
+    },
+
+    "vm_size": "Standard_DS2_v2"
+  }],
+  "provisioners": [
+  {
+    "type": "file",
+    "source": "azure-cli.repo",
+    "destination": "/tmp/azure-cli.repo"
+  },
+  {
+    "type": "shell",
+    "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+    "inline": [
+      "mv /tmp/azure-cli.repo /etc/yum.repos.d/azure-cli.repo"
+    ],
+    "inline_shebang": "/bin/sh -x"
+  },
+  {
+    "type": "shell",
+    "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+    "inline": [
+      "rpm --import https://packages.microsoft.com/keys/microsoft.asc",
+      "yum install -y gcc libffi-devel python-devel openssl-devel dnf",
+      "dnf update -y",
+      "dnf install -y azure-cli",
+      "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+    ],
+    "inline_shebang": "/bin/sh -x"
+  }]
+}
