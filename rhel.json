@@ -30,7 +30,7 @@
         "type": "redhat",
         "created_by": "packer"
     },
-    "allowed_inbound_ip_addresses":       "[${{user `whitelist`}}]",
+    "allowed_inbound_ip_addresses":       ["${{user `whitelist`}}"],
     "vm_size":                            "Standard_DS2_v2"
   }],
   "provisioners": [
