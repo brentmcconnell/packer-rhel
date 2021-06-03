@@ -21,7 +21,7 @@ steps:
   displayName: 'Set runtime variables for pipeline'
 
 - script: |
-    # packer build rhel.json
+    packer build rhel.json
     echo 'hello'
   displayName: 'Execute Packer script for RHEL'
   env:
