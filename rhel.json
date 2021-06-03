@@ -7,7 +7,7 @@
     "cloud":          "{{env `AZURE_CLOUD`}}",
     "location":       "{{env `AZURE_LOCATION`}}",
     "resourceGroup":  "{{env `AZURE_RESOURCE_GROUP`}}",
-    "version":        "{{env `IMAGE_VERSION`}}"
+    "version":        "{{env `IMAGE_VERSION`}}",
     "whitelist":      "{{env `WHITELIST_IP`}}"
   },
   "builders": [{
