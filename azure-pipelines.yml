@@ -22,7 +22,7 @@ steps:
 
 - script: |
     echo IP=$(runtime_vars.IP)
-    packer build rhel.json
+    PACKER_LOG=1 packer build rhel.json
   displayName: 'Execute Packer script for RHEL'
   env:
     AZURE_CLOUD: $(AZURE_CLOUD)
