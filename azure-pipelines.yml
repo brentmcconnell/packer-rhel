@@ -21,8 +21,8 @@ steps:
   displayName: 'Set runtime variables for pipeline'
 
 - script: |
+    echo IP=$(runtime_vars.IP)
     packer build rhel.json
-    echo 'hello'
   displayName: 'Execute Packer script for RHEL'
   env:
     AZURE_CLOUD: $(AZURE_CLOUD)
