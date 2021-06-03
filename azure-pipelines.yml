@@ -1,5 +1,7 @@
-pool: parker-vmss
-#  vmImage: ubuntu-latest
+pool:
+  vmImage: ubuntu-latest
+
+# pool: parker-vmss
   
 variables:
 - group: SP_VALUES
@@ -17,7 +19,11 @@ steps:
   displayName: 'Set runtime variables for pipeline'
 
 - script: |
-    packer build rhel.json
+    ifconfig
+
+- script: |
+    # packer build rhel.json
+    echo 'hello'
   displayName: 'Execute Packer script for RHEL'
   env:
     AZURE_CLOUD: $(AZURE_CLOUD)
