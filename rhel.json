@@ -8,6 +8,7 @@
     "location":       "{{env `AZURE_LOCATION`}}",
     "resourceGroup":  "{{env `AZURE_RESOURCE_GROUP`}}",
     "version":        "{{env `IMAGE_VERSION`}}"
+    "whitelist":      "{{env `WHITELIST_IP`}}"
   },
   "builders": [{
     "type":                               "azure-arm",
@@ -29,8 +30,7 @@
         "type": "redhat",
         "created_by": "packer"
     },
-    "virtual_network_name":               "parker-vnet",
-    "virtual_network_subnet_name":        "default",
+    "allowed_inbound_ip_addresses":       "[${{user `whitelist`}}]"
     "vm_size":                            "Standard_DS2_v2"
   }],
   "provisioners": [
