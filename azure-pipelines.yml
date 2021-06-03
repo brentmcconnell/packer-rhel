@@ -19,7 +19,8 @@ steps:
   displayName: 'Set runtime variables for pipeline'
 
 - script: |
-    ifconfig
+    IP=$(curl http://ipinfo.io/json | jq '.ip')
+    echo $IP
 
 - script: |
     # packer build rhel.json
